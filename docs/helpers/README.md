@@ -12,12 +12,12 @@
       * [General Extended Envvars Info](#general-extended-envvars-info)
       * [Extract Extended Envvars](#extract-extended-envvars)
       * [Generate Extended Envvar Docs](#generate-extended-envvar-docs)
-   * [Tasks for New Releases](#tasks-for-new-releases)
+   * [Doc Tasks for New Releases](#doc-tasks-for-new-releases)
    * [Backporting](#backporting)
 
 ## Introduction
 
-`docs/helpers` contains a go program named `main.go` which creates docs by extracting information from the code using additional go programs. Individual steps (programs) can be called manually if needed. Note that not all programs are called automatically on purpose, see the [Tasks for New Releases](#tasks-for-new-releases) below. `main.go` is used by `make docs-generate` (or `make -C docs docs-generate` when running manually from the repos root) which is triggered by the CI or can be called manually. It calls the other required programs and has these main responsibilities for automatic runs:
+`docs/helpers` contains a go program named `main.go` which creates docs by extracting information from the code using additional go programs. Individual steps (programs) can be called manually if needed. Note that not all programs are called automatically on purpose, see the [Doc Tasks for New Releases](#doc-tasks-for-new-releases) below. `main.go` is used by `make docs-generate` (or `make -C docs docs-generate` when running manually from the repos root) which is triggered by the CI or can be called manually. It calls the other required programs and has these main responsibilities for automatic runs:
 
 - Generate docs for envvars in config structs including deprecations if there are any.
 - Extract and generate docs for `extended` envvars that are not mentioned in config structs (aka "rogue" envvars).
@@ -210,10 +210,9 @@ Similar to the Asciidoc files for the admin docs, Markdown files necessary for t
   This will give you an overview of available commands. 
     * Because `env_vars.yaml` has been cleaned up as part of the _before release_ tasks above, we can rely on its actuality for the branches to be compared.
     * Create delta files for added, removed and deprecated envvars. To do so type:\
-    `go run . env-var-delta-table` and use as parameter the versions you want to compare. Example: `v5.0.0 v7.0.0`.
+    `go run . env-var-delta-table` and use as parameter the versions you want to compare. Example: `v7.0.0 v7.1.0`.
     * List and check the files created in `./docs/helpers/output/env-deltas/`. The markdown files created contain a table with dev relevant data. Any other files created are not relevant and can safely be deleted.
     * Create a branch and move the markdown files from `./docs/helpers/output/env-deltas/` to `./docs/services/general-info/env-var-deltas/`. The markdown files will be consumed by dev docs from this location.
-
 
 * Commit all changes, create a PR and merge. Dev docs is now up-to-date.    
 
@@ -223,8 +222,8 @@ The ocis repo contains branches which are necessary for the documentation. The `
 
 Cases for a backport can be a typo in an envvar description you want to have fixed in a stable branch too or a file  was created after the stable branch was set up but needs to be available in that branch.
 
-When a new stable ocis release (branch) is published, like `stable-5.0`, an additional branch (including CI) is set up manually by the dev team for referencing docs content like `docs-stable-5.0` - related to envvars and yaml files only - and added to the CI.
+When a new stable ocis release (branch) is published, like `stable-7.2`, an additional branch (including CI) is set up manually by the dev team for referencing docs content like `docs-stable-7.2` - related to envvars and yaml files only - and added to the CI.
 
-In case it is necessary to transport a change from master to a stable branch like `docs-stable-5.0`, you must backport the original changes that will create that file to the `stable-5.0` branch. The CI will then take care of creating the results in the target `docs-stable-5.0`.
+In case it is necessary to transport a change from master to a stable branch like `docs-stable-7.2`, you must backport the original changes that will create that file to the `stable-7.2` branch. The CI will then take care of creating the results in the target `docs-stable-7.2`.
 
 If the change is expected to have a bigger impact on documenation, you can locally run `make -C docs docs-generate` in the respective branch containing the changes or independently in the `stable-x.y` branch after merging to see if there are additional actions necessary and changed files may need to get checked in.
