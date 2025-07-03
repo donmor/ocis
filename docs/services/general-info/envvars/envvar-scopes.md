@@ -48,7 +48,7 @@ The envvar struct tag contains at maximum the following key/value pairs to docum
 
 ### Introduce new Envvars
 
-If a new envvar is introduced, only the `introductionVersion` is required.
+If a new envvar is introduced, the complete struct needs to be added, but only the `introductionVersion` requires data.
 
 {{< hint info >}}
 * During development, set `introductionVersion` to a short, **alphabetic code name** that represents the upcoming release (e.g. `releaseX`).
