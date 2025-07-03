@@ -1,9 +1,9 @@
 ---
 title: Envvar Naming Scopes
 date: 2023-03-23T00:00:00+00:00
-weight: 20
+weight: 10
 geekdocRepo: https://github.com/owncloud/ocis
-geekdocEditPath: edit/master/docs/services/general-info
+geekdocEditPath: edit/master/docs/services/general-info/envvars
 geekdocFilePath: envvar-scopes.md
 geekdocCollapseSection: true
 ---
